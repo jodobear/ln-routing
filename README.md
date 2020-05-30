@@ -7,6 +7,24 @@
 
 ## Preliminary analysis
 
-I was able to find some weakly connected components. This is interesting since
+1. I was able to find some weakly connected components. This is interesting since
 this can serve as a good way to identify better nodes to connect to for
 routing.
+
+2. While using the following code to find shortest pah, I would get `No path found error`. Makes sense, but then how do i ignore those and continue with the algo. Should do `try...except`, but then `Networkx` had `all_pairs_shortest_path`:
+
+```py
+import random
+
+sh_path = dict()
+def find_sh_path(G, s=list(G)[random.randrange(1000)], \
+                    t=list(G)[random.randrange(1000)]):
+    return s, t, nx.shortest_path(G, source=s, target=t, method='dijkstra')
+
+i = 1000
+while i > 0:
+    s, t, path = find_sh_path(G)
+    sh_path[(s, t)] = path
+    i -= 1
+```
+
